@@ -5,3 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'faker'
+
+#On supprime les données en base
+Dogsitter.destroy_all
+Dog.destroy_all
+Stroll.destroy_all
+
+#On créé 10 dogsitters
+10.times do 
+	Dogsitter.create(username: Faker::Internet.username(5..8))
+end
+puts "10 dogsitters ont rejoint Doggybnb !"
+
+#On créé 10 dogs
+10.times do 
+	Dog.create(name: Faker::Dog.name)
+end
+puts "10 chiens ont rejoint Doggybnb !"
+
+#On créé 50 promenades avec des dogsitters et des dogs qui existent le base
+50.times do
+	Stroll.create(dogsitter: Dogsitter.order("RANDOM()").first, dog: Dog.order("RANDOM()").first)
+end
+puts "Whaou déjà 50 reservations de promenades faites sur Doggybnb"
