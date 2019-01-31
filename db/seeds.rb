@@ -12,16 +12,24 @@ require 'faker'
 Dogsitter.destroy_all
 Dog.destroy_all
 Stroll.destroy_all
+City.destroy_all
+
+
+#On créé 5 villes
+5.times do 
+	City.create(city_name: Faker::Address.city)
+end
+puts "5 villes ont été débloquées sur la plateforme !"
 
 #On créé 10 dogsitters
 10.times do 
-	Dogsitter.create(username: Faker::Internet.username(5..8))
+	Dogsitter.create(username: Faker::Internet.username(5..8), city: City.order("RANDOM()").first)
 end
 puts "10 dogsitters ont rejoint Doggybnb !"
 
 #On créé 10 dogs
 10.times do 
-	Dog.create(name: Faker::Dog.name)
+	Dog.create(name: Faker::Dog.name, city: City.order("RANDOM()").first)
 end
 puts "10 chiens ont rejoint Doggybnb !"
 
